@@ -30,16 +30,13 @@ import {
   FILME_GAME_COMIDA_OPTIONS,
   SOBREMESA_OPTIONS,
   DIA_OPTIONS,
-  DEFAULT_PHONE,
 } from "@/data/options";
 import { FloatingHearts } from "@/components/FloatingHearts";
 import { StepIndicator } from "@/components/StepIndicator";
 import { OptionCard } from "@/components/OptionCard";
-import { PhoneModal } from "@/components/PhoneModal";
 import { VipTicket } from "@/components/VipTicket";
 import { AntiPerrengueGuarantee } from "@/components/AntiPerrengueGuarantee";
 import { DestinyRouletteModal } from "@/components/DestinyRouletteModal";
-import { ShareLinkModal } from "@/components/ShareLinkModal";
 
 // Dynamic persuasive phrases displayed inside the fugitive "Não" button
 const NO_BUTTON_PHRASES = [
@@ -72,12 +69,6 @@ const PERSUASIVE_MESSAGES = [
 function InviteAppContent() {
   const searchParams = useSearchParams();
   const rawParamName = searchParams.get("nome") || searchParams.get("para") || "";
-  const rawParamPhone =
-    searchParams.get("tel") ||
-    searchParams.get("phone") ||
-    searchParams.get("wpp") ||
-    searchParams.get("para_tel") ||
-    "";
 
   // Step state machine: "invite" -> "role" -> "sinuca_custom" | "comida" -> "sobremesa" -> "dia" -> "resumo"
   const [step, setStep] = useState<Step>("invite");
@@ -99,19 +90,6 @@ function InviteAppContent() {
     dia: null,
     sinuca_combo: null,
   });
-
-  // WhatsApp phone number (auto-populated from URL param or default)
-  const [phone, setPhone] = useState<string>(() => {
-    const cleaned = rawParamPhone.replace(/\D/g, "");
-    return cleaned.length >= 10 ? cleaned : DEFAULT_PHONE;
-  });
-
-  useEffect(() => {
-    if (rawParamPhone) {
-      const cleaned = rawParamPhone.replace(/\D/g, "");
-      if (cleaned.length >= 10) setPhone(cleaned);
-    }
-  }, [rawParamPhone]);
 
   // Fugitive "Não" button state - flees across the entire viewport screen
   const [hasMovedNo, setHasMovedNo] = useState(false);
@@ -383,13 +361,8 @@ Garantia anti-perrengue ativada! 🛡️
 Qual horário fica melhor pra gente se encontrar? 🚀`;
   }
 
-  // 1. Direct link to the sender's phone number
-  const whatsappUrlDirect = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(
-    formattedWhatsAppMessage
-  )}`;
-
-  // 2. Fallback link opening WhatsApp contact picker to choose any contact
-  const whatsappUrlContactPicker = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+  // Opens WhatsApp contact selector directly so the user picks whoever they want without random numbers
+  const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
     formattedWhatsAppMessage
   )}`;
 
@@ -1061,10 +1034,10 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
 
             {/* Action button */}
             <div className="space-y-3 pt-1">
-              {/* Main Button: Sends directly to sender or opens picker */}
+              {/* Main Button: Opens WhatsApp contact selector directly */}
               <a
                 id="btn-whatsapp"
-                href={phone ? whatsappUrlDirect : whatsappUrlContactPicker}
+                href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
@@ -1079,26 +1052,8 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                 className="w-full min-h-[48px] bg-[#25D366] hover:bg-[#20ba59] active:scale-98 text-slate-950 font-black text-base sm:text-lg py-4 px-6 rounded-xl shadow-[0_0_30px_rgba(37,211,102,0.35)] flex items-center justify-center gap-3 transition-all duration-200 cursor-pointer text-center group"
               >
                 <Send className="w-5 h-5 fill-current group-hover:translate-x-1 transition-transform" />
-                <span>
-                  {phone
-                    ? "Enviar Resposta no WhatsApp ✨"
-                    : "Enviar e Escolher Contato no WhatsApp ✨"}
-                </span>
+                <span>Enviar no WhatsApp ✨</span>
               </a>
-
-              {/* Opção para escolher outro contato na lista do WhatsApp se houver número fixo */}
-              {phone && (
-                <div className="text-center pt-0.5">
-                  <a
-                    href={whatsappUrlContactPicker}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-slate-400 hover:text-emerald-300 underline underline-offset-4 inline-flex items-center gap-1.5 transition-colors cursor-pointer"
-                  >
-                    <span>Ou escolher outro contato na lista do WhatsApp 📱</span>
-                  </a>
-                </div>
-              )}
 
               {/* Secondary actions: Copy & Refazer */}
               <div className="flex gap-2">
@@ -1128,19 +1083,6 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                   <RefreshCw className="w-4 h-4" />
                   <span>Refazer</span>
                 </button>
-              </div>
-
-              {/* Ferramentas: Gerar Link para Ela e Configurar Destino */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 pt-2 border-t border-slate-800/80">
-                <ShareLinkModal currentPhone={phone} initialGuestName={guestName} />
-                <PhoneModal
-                  currentPhone={phone}
-                  onSavePhone={(p) => setPhone(p)}
-                  selectedRole={selections.role}
-                  onSelectRole={(r) => setSelections((prev) => ({ ...prev, role: r }))}
-                  selectedDia={selections.dia}
-                  onSelectDia={(d) => setSelections((prev) => ({ ...prev, dia: d }))}
-                />
               </div>
             </div>
           </div>
