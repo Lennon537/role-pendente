@@ -109,10 +109,10 @@ export function DestinyRouletteModal({ onApplyCombo }: DestinyRouletteModalProps
 
       try {
         confetti({
-          particleCount: 70,
-          spread: 60,
+          particleCount: 75,
+          spread: 65,
           origin: { y: 0.6 },
-          colors: ["#10b981", "#6366f1", "#f59e0b"],
+          colors: ["#e11d48", "#f43f5e", "#fb7185", "#fbbf24", "#ffffff"],
         });
       } catch {}
     }, 1100);
@@ -138,10 +138,10 @@ export function DestinyRouletteModal({ onApplyCombo }: DestinyRouletteModalProps
         id="btn-destiny-roulette"
         onClick={handleOpen}
         title="Sortear um combo completo caso esteja indecisa"
-        className="min-h-[44px] inline-flex items-center gap-2 text-xs font-bold text-amber-300 hover:text-white bg-amber-500/10 hover:bg-amber-500/20 px-3.5 py-2 rounded-xl border border-amber-500/30 transition-all cursor-pointer shadow-sm active:scale-95"
+        className="min-h-[44px] inline-flex items-center gap-2 text-xs font-bold text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 px-3.5 py-2 rounded-xl border border-rose-200 transition-all cursor-pointer shadow-xs active:scale-95"
       >
-        <Dices className="w-4 h-4 text-amber-400 animate-spin-slow" />
-        <span>Indecisa? Deixa o Destino Escolher! 🎲</span>
+        <Dices className="w-4 h-4 text-rose-600" />
+        <span>Indecisa? Deixa a Sorte Escolher! 🎲</span>
       </button>
 
       {/* Modal */}
@@ -152,34 +152,34 @@ export function DestinyRouletteModal({ onApplyCombo }: DestinyRouletteModalProps
           onClick={(e) => {
             if (e.target === e.currentTarget && !isSpinning) setIsOpen(false);
           }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/50 backdrop-blur-sm animate-in fade-in"
         >
-          <div className="w-full max-w-md bg-slate-900 border border-slate-700/80 rounded-3xl p-6 shadow-2xl text-center relative overflow-hidden">
+          <div className="w-full max-w-md bg-white border border-rose-200 rounded-3xl p-6 shadow-2xl text-center relative overflow-hidden">
             {/* Close Button */}
             {!isSpinning && (
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
                 aria-label="Fechar"
-                className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800 transition-colors cursor-pointer"
+                className="absolute top-4 right-4 p-2 text-stone-400 hover:text-stone-700 rounded-xl hover:bg-rose-50 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             )}
 
             {/* Icon */}
-            <div className="w-16 h-16 mx-auto mb-3 rounded-2xl bg-gradient-to-tr from-amber-500/20 to-emerald-500/20 border border-amber-500/30 flex items-center justify-center shadow-lg">
+            <div className="w-16 h-16 mx-auto mb-3 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center shadow-xs">
               <Dices
-                className={`w-8 h-8 text-amber-400 ${
+                className={`w-8 h-8 text-rose-600 ${
                   isSpinning ? "animate-spin" : ""
                 }`}
               />
             </div>
 
-            <h3 className="text-xl font-black text-white">
-              {isSpinning ? "Consultando os Deuses do Rolê... 🎲" : "O Destino Decidiu! 🎯"}
+            <h3 className="text-xl font-black text-stone-900">
+              {isSpinning ? "Consultando a Sorte do Rolê... 🎲" : "O Destino Decidiu! 💖"}
             </h3>
-            <p className="text-xs text-slate-400 mt-1 mb-4">
+            <p className="text-xs text-stone-500 mt-1 mb-4">
               {isSpinning
                 ? "Sorteando a melhor combinação para zero indecisão..."
                 : "Uma combinação infalível pra gente não perder tempo escolhendo:"}
@@ -189,19 +189,19 @@ export function DestinyRouletteModal({ onApplyCombo }: DestinyRouletteModalProps
             {isSpinning ? (
               <div className="py-8 flex flex-col items-center justify-center space-y-3">
                 <div className="text-4xl animate-bounce">🍢 ➔ 🎱 ➔ 🍿 ➔ 🍻</div>
-                <span className="text-xs font-mono text-emerald-400">
-                  Calibrando a vibe perfeita...
+                <span className="text-xs font-mono text-rose-600 font-bold">
+                  Preparando a vibe perfeita...
                 </span>
               </div>
             ) : resultCombo ? (
-              <div className="space-y-2.5 text-left bg-slate-950/80 p-4 rounded-2xl border border-slate-800">
+              <div className="space-y-2.5 text-left bg-rose-50/60 p-4 rounded-2xl border border-rose-100">
                 <div className="flex items-center gap-2.5">
                   <span className="text-2xl">{resultCombo.roleEmoji}</span>
                   <div className="min-w-0 flex-1">
-                    <span className="text-[10px] font-bold uppercase text-slate-500 block">
+                    <span className="text-[10px] font-bold uppercase text-stone-400 block">
                       O Rolê
                     </span>
-                    <p className="text-xs font-bold text-slate-100 truncate">
+                    <p className="text-xs font-bold text-stone-800 truncate">
                       {resultCombo.roleTitle}
                     </p>
                   </div>
@@ -210,10 +210,10 @@ export function DestinyRouletteModal({ onApplyCombo }: DestinyRouletteModalProps
                 <div className="flex items-center gap-2.5">
                   <span className="text-2xl">{resultCombo.foodEmoji}</span>
                   <div className="min-w-0 flex-1">
-                    <span className="text-[10px] font-bold uppercase text-slate-500 block">
+                    <span className="text-[10px] font-bold uppercase text-stone-400 block">
                       A Comida / Petiscos
                     </span>
-                    <p className="text-xs font-bold text-slate-100 truncate">
+                    <p className="text-xs font-bold text-stone-800 truncate">
                       {resultCombo.foodTitle}
                     </p>
                   </div>
@@ -223,10 +223,10 @@ export function DestinyRouletteModal({ onApplyCombo }: DestinyRouletteModalProps
                   <div className="flex items-center gap-2.5">
                     <span className="text-2xl">🍨</span>
                     <div className="min-w-0 flex-1">
-                      <span className="text-[10px] font-bold uppercase text-slate-500 block">
+                      <span className="text-[10px] font-bold uppercase text-stone-400 block">
                         Sobremesa
                       </span>
-                      <p className="text-xs font-bold text-slate-100 truncate">
+                      <p className="text-xs font-bold text-stone-800 truncate">
                         {resultCombo.sobremesaTitle}
                       </p>
                     </div>
@@ -236,10 +236,10 @@ export function DestinyRouletteModal({ onApplyCombo }: DestinyRouletteModalProps
                 <div className="flex items-center gap-2.5">
                   <span className="text-2xl">{resultCombo.diaEmoji}</span>
                   <div className="min-w-0 flex-1">
-                    <span className="text-[10px] font-bold uppercase text-slate-500 block">
+                    <span className="text-[10px] font-bold uppercase text-stone-400 block">
                       Data Marcada
                     </span>
-                    <p className="text-xs font-bold text-slate-100 truncate">
+                    <p className="text-xs font-bold text-stone-800 truncate">
                       {resultCombo.diaTitle}
                     </p>
                   </div>
@@ -253,7 +253,7 @@ export function DestinyRouletteModal({ onApplyCombo }: DestinyRouletteModalProps
                 <button
                   type="button"
                   onClick={spinRoulette}
-                  className="flex-1 py-3 px-3 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  className="flex-1 py-3 px-3 rounded-xl border border-stone-200 bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Dices className="w-3.5 h-3.5" />
                   <span>Girar Novamente</span>
@@ -262,9 +262,9 @@ export function DestinyRouletteModal({ onApplyCombo }: DestinyRouletteModalProps
                 <button
                   type="button"
                   onClick={handleConfirm}
-                  className="flex-1 py-3 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition-all cursor-pointer"
+                  className="flex-1 py-3 px-3 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition-all cursor-pointer"
                 >
-                  <span>Adotar Esse Rolê! 🚀</span>
+                  <span>Adotar Esse Rolê! 💖</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>

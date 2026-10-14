@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Ticket, QrCode, Sparkles, Check, Copy, Share2 } from "lucide-react";
+import { Ticket, QrCode, Sparkles, Check, Copy, Heart } from "lucide-react";
 import { OptionItem } from "@/types/invite";
 
 interface VipTicketProps {
@@ -29,16 +29,16 @@ export function VipTicket({
 }: VipTicketProps) {
   const [copied, setCopied] = useState(false);
 
-  const ticketCode = `ROLE-${new Date().getFullYear()}-VIP#${Math.floor(
+  const ticketCode = `DATE-${new Date().getFullYear()}-VIP#${Math.floor(
     1000 + Math.random() * 9000
   )}`;
 
   const displayName = guestName?.trim() || "Convidada Especial";
 
   const handleCopyTicket = async () => {
-    const text = `🎟️ TICKET OFICIAL DO ROLÊ 🎟️\nCódigo: ${ticketCode}\nConvidada: ${displayName}\nRolê: ${
+    const text = `💌 CONVITE OFICIAL DE DATE 💌\nCódigo: ${ticketCode}\nConvidada Especial: ${displayName}\nRolê: ${
       selectedRole?.title || "Rolê combinado"
-    }\nData: ${selectedDia?.title || "A definir"}\nStatus: 100% Confirmado & Zero Perrengue 🚀`;
+    }\nData: ${selectedDia?.title || "A definir"}\nStatus: 100% Confirmado & Risadas Garantidas 💖`;
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
@@ -48,32 +48,32 @@ export function VipTicket({
 
   return (
     <div className="relative w-full max-w-xl mx-auto my-4 transition-all">
-      {/* Outer Golden/Emerald Glow Card */}
-      <div className="relative rounded-3xl bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 border border-emerald-500/30 p-5 sm:p-7 shadow-[0_0_40px_rgba(16,185,129,0.15)] overflow-hidden">
-        {/* Decorative Top Accent Line */}
-        <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-300 to-indigo-500" />
+      {/* Outer Romantic Letter Card */}
+      <div className="relative rounded-3xl bg-white border-2 border-rose-200/90 p-5 sm:p-7 shadow-[0_12px_35px_rgba(225,29,72,0.1)] overflow-hidden">
+        {/* Decorative Top Romantic Ribbon Line */}
+        <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-red-600 via-rose-500 to-red-600" />
 
         {/* Ticket Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-          <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+        <div className="flex items-center justify-between pb-4 border-b border-rose-100">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-600">
               <Ticket className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-400 font-extrabold block">
-                Passe Oficial de Date
+              <span className="text-[10px] font-mono uppercase tracking-widest text-rose-600 font-extrabold block">
+                Carta-Convite de Date 💌
               </span>
-              <h4 className="text-base sm:text-lg font-black text-white tracking-wide">
-                VIP BOARDING PASS 🚀
+              <h4 className="text-base sm:text-lg font-black text-stone-900 tracking-wide">
+                PASSE VIP EXCLUSIVO ✨
               </h4>
             </div>
           </div>
 
           <div className="text-right">
-            <span className="text-[10px] font-mono text-slate-500 block uppercase">
+            <span className="text-[10px] font-mono text-stone-400 block uppercase">
               Código Único
             </span>
-            <span className="text-xs font-mono font-bold text-slate-300 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700">
+            <span className="text-xs font-mono font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
               {ticketCode}
             </span>
           </div>
@@ -82,20 +82,20 @@ export function VipTicket({
         {/* Ticket Body */}
         <div className="py-4 space-y-3.5">
           {/* Passenger / Guest Name */}
-          <div className="bg-slate-950/70 p-3 rounded-2xl border border-slate-800/90 flex items-center justify-between">
+          <div className="bg-rose-50/80 p-3.5 rounded-2xl border border-rose-200/80 flex items-center justify-between">
             <div>
-              <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 block">
+              <span className="text-[10px] font-extrabold uppercase tracking-wider text-rose-700/80 block">
                 Convidada de Honra
               </span>
-              <p className="text-base sm:text-lg font-black text-emerald-300">
-                {displayName} ✨
+              <p className="text-base sm:text-lg font-black text-rose-700">
+                {displayName} 💖
               </p>
             </div>
             <div className="text-right">
-              <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 block">
+              <span className="text-[10px] font-extrabold uppercase tracking-wider text-stone-400 block">
                 Status
               </span>
-              <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-md">
+              <span className="inline-flex items-center gap-1 text-[11px] font-bold text-white bg-rose-600 px-2.5 py-1 rounded-md shadow-xs">
                 <Check className="w-3 h-3 stroke-[3]" />
                 CONFIRMADO
               </span>
@@ -105,31 +105,31 @@ export function VipTicket({
           {/* Details Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
             {/* Rolê */}
-            <div className="p-3 rounded-xl bg-slate-950/50 border border-slate-800/80">
-              <span className="text-[10px] uppercase font-bold text-slate-500 block mb-0.5">
+            <div className="p-3 rounded-xl bg-stone-50 border border-stone-200/80">
+              <span className="text-[10px] uppercase font-bold text-stone-500 block mb-0.5">
                 Atividade Oficial
               </span>
-              <p className="font-bold text-slate-200 truncate">
+              <p className="font-bold text-stone-800 truncate">
                 {selectedRole?.emoji} {selectedRole?.title || "Rolê Escolhido"}
               </p>
             </div>
 
             {/* Data */}
-            <div className="p-3 rounded-xl bg-slate-950/50 border border-slate-800/80">
-              <span className="text-[10px] uppercase font-bold text-slate-500 block mb-0.5">
+            <div className="p-3 rounded-xl bg-stone-50 border border-stone-200/80">
+              <span className="text-[10px] uppercase font-bold text-stone-500 block mb-0.5">
                 Data do Encontro
               </span>
-              <p className="font-bold text-slate-200 truncate">
+              <p className="font-bold text-stone-800 truncate">
                 {selectedDia?.emoji} {selectedDia?.title || "Data Marcada"}
               </p>
             </div>
 
             {/* Comida / Bebidas */}
-            <div className="p-3 rounded-xl bg-slate-950/50 border border-slate-800/80 sm:col-span-2">
-              <span className="text-[10px] uppercase font-bold text-slate-500 block mb-0.5">
+            <div className="p-3 rounded-xl bg-stone-50 border border-stone-200/80 sm:col-span-2">
+              <span className="text-[10px] uppercase font-bold text-stone-500 block mb-0.5">
                 Cardápio do Date
               </span>
-              <p className="font-semibold text-slate-300">
+              <p className="font-semibold text-stone-800">
                 {isSinuca ? (
                   <>🍻 {selectedSinucaCombo?.title || "Cervejas e petiscos"}</>
                 ) : isFilmeGame ? (
@@ -152,17 +152,17 @@ export function VipTicket({
 
         {/* Perforation Cutouts (Left & Right) */}
         <div className="relative my-3 flex items-center justify-between">
-          <div className="w-5 h-5 rounded-full bg-[#080c14] -ml-8 sm:-ml-10 border-r border-slate-700/60 shadow-inner" />
-          <div className="flex-1 border-t-2 border-dashed border-slate-800 mx-2" />
-          <div className="w-5 h-5 rounded-full bg-[#080c14] -mr-8 sm:-mr-10 border-l border-slate-700/60 shadow-inner" />
+          <div className="w-5 h-5 rounded-full bg-[#faf6f5] -ml-8 sm:-ml-10 border-r border-rose-300 shadow-inner" />
+          <div className="flex-1 border-t-2 border-dashed border-rose-200 mx-2" />
+          <div className="w-5 h-5 rounded-full bg-[#faf6f5] -mr-8 sm:-mr-10 border-l border-rose-300 shadow-inner" />
         </div>
 
         {/* Ticket Footer (Barcode + Action) */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
           {/* Simulated Barcode */}
           <div className="flex items-center gap-2">
-            <QrCode className="w-7 h-7 text-emerald-400/80 flex-shrink-0" />
-            <div className="font-mono text-[9px] text-slate-500 tracking-widest select-none">
+            <QrCode className="w-7 h-7 text-rose-600 flex-shrink-0" />
+            <div className="font-mono text-[9px] text-stone-400 tracking-widest select-none">
               ||| | ||||| || |||||| | |||| ||||
             </div>
           </div>
@@ -172,17 +172,17 @@ export function VipTicket({
             <button
               type="button"
               onClick={handleCopyTicket}
-              className="w-full sm:w-auto px-3.5 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95"
+              className="w-full sm:w-auto px-3.5 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-95"
             >
               {copied ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400 stroke-[3]" />
-                  <span className="text-emerald-400 font-bold">Ticket Copiado!</span>
+                  <Check className="w-3.5 h-3.5 text-rose-600 stroke-[3]" />
+                  <span className="text-rose-700 font-bold">Convite Copiado!</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Copiar Comprovante</span>
+                  <Copy className="w-3.5 h-3.5 text-rose-500" />
+                  <span>Copiar Convite</span>
                 </>
               )}
             </button>
@@ -190,8 +190,8 @@ export function VipTicket({
         </div>
 
         {/* Screenshot Hint */}
-        <p className="text-[11px] text-center text-slate-500 mt-3 font-medium">
-          📸 Tire um print deste ticket para guardar o nosso comprovante oficial!
+        <p className="text-[11px] text-center text-stone-400 mt-3 font-medium">
+          📸 Tire um print deste cartão para guardar o nosso convite oficial! 💌
         </p>
       </div>
     </div>

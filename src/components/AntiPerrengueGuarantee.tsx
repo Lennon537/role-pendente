@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ShieldCheck, ChevronDown, CheckCircle2, Sparkles, Award } from "lucide-react";
+import { ShieldCheck, ChevronDown, CheckCircle2, Award } from "lucide-react";
 
 const GUARANTEE_CLAUSES = [
   {
@@ -40,7 +40,7 @@ export function AntiPerrengueGuarantee() {
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (
-    <div className="w-full rounded-2xl bg-slate-950/90 border border-emerald-500/30 p-4 sm:p-5 shadow-lg text-left transition-all">
+    <div className="w-full rounded-2xl bg-white border border-rose-200 p-4 sm:p-5 shadow-xs text-left transition-all">
       {/* Header / Toggle */}
       <button
         type="button"
@@ -48,25 +48,25 @@ export function AntiPerrengueGuarantee() {
         className="w-full flex items-center justify-between text-left cursor-pointer group"
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center flex-shrink-0 shadow-sm">
+          <div className="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center flex-shrink-0 shadow-xs">
             <ShieldCheck className="w-6 h-6" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h4 className="font-bold text-white text-sm sm:text-base group-hover:text-emerald-300 transition-colors">
-                Garantia Anti-Perrengue 🛡️
+              <h4 className="font-bold text-stone-900 text-sm sm:text-base group-hover:text-rose-700 transition-colors">
+                Garantia de Date Sem Perrengue 🛡️
               </h4>
-              <span className="text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full">
+              <span className="text-[10px] font-mono font-bold bg-rose-100 text-rose-700 border border-rose-200 px-2 py-0.5 rounded-full">
                 100% Blindado
               </span>
             </div>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-stone-500">
               5 Cláusulas Oficiais de Cavalheirismo Moderno & Boa Convivência
             </p>
           </div>
         </div>
 
-        <div className="p-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 group-hover:text-white transition-colors">
+        <div className="p-1.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-600 group-hover:bg-rose-100 transition-colors">
           <ChevronDown
             className={`w-4 h-4 transition-transform duration-200 ${
               isExpanded ? "rotate-180" : ""
@@ -77,21 +77,21 @@ export function AntiPerrengueGuarantee() {
 
       {/* Expanded Clauses */}
       {isExpanded && (
-        <div className="mt-4 pt-3 border-t border-slate-800 space-y-2.5 animate-in fade-in duration-200">
+        <div className="mt-4 pt-3 border-t border-rose-100 space-y-2.5 animate-in fade-in duration-200">
           {GUARANTEE_CLAUSES.map((clause, index) => (
             <div
               key={index}
-              className="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80"
+              className="flex items-start gap-2.5 p-2.5 rounded-xl bg-rose-50/50 border border-rose-100"
             >
               <span className="text-lg flex-shrink-0 mt-0.5">{clause.icon}</span>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5 mb-0.5">
-                  <span className="text-xs font-bold text-slate-200">
+                  <span className="text-xs font-bold text-stone-800">
                     {clause.title}
                   </span>
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 flex-shrink-0" />
                 </div>
-                <p className="text-[11px] text-slate-400 leading-relaxed">
+                <p className="text-[11px] text-stone-600 leading-relaxed">
                   {clause.description}
                 </p>
               </div>
@@ -99,12 +99,12 @@ export function AntiPerrengueGuarantee() {
           ))}
 
           {/* Seal */}
-          <div className="mt-3 p-2.5 rounded-xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-indigo-500/10 border border-emerald-500/20 flex items-center justify-between text-xs text-emerald-300">
+          <div className="mt-3 p-2.5 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-between text-xs text-rose-700">
             <span className="flex items-center gap-1.5 font-bold">
-              <Award className="w-4 h-4 text-emerald-400" />
-              Selo de Encontro Sem Clichê & Sem Drama
+              <Award className="w-4 h-4 text-rose-600" />
+              Selo de Encontro Sem Clichê & Sem Drama 💖
             </span>
-            <span className="font-mono text-[10px] text-slate-400">Válido para este rolê</span>
+            <span className="font-mono text-[10px] text-stone-500">Válido para este rolê</span>
           </div>
         </div>
       )}

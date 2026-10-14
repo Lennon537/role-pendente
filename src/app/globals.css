@@ -1,58 +1,66 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap');
 @import "tailwindcss";
 
 :root {
-  --font-family: 'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
 }
 
 body {
   font-family: var(--font-family);
-  background-color: #080c14;
-  color: #f8fafc;
+  background-color: #faf6f5;
+  color: #292524;
   overflow-x: hidden;
   min-height: 100vh;
 }
 
-/* Sophisticated dark background mesh */
-.bg-mesh-dark {
-  background-color: #080c14;
+/* Warm Romantic Letter Background with soft ambient rose glow */
+.bg-mesh-letter {
+  background-color: #faf6f5;
   background-image: 
-    radial-gradient(at 10% 15%, rgba(16, 185, 129, 0.13) 0px, transparent 45%),
-    radial-gradient(at 90% 15%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-    radial-gradient(at 50% 85%, rgba(14, 165, 233, 0.10) 0px, transparent 55%),
-    radial-gradient(at 85% 85%, rgba(245, 158, 11, 0.08) 0px, transparent 50%);
+    radial-gradient(at 15% 15%, rgba(244, 63, 94, 0.08) 0px, transparent 45%),
+    radial-gradient(at 85% 15%, rgba(225, 29, 72, 0.07) 0px, transparent 50%),
+    radial-gradient(at 50% 85%, rgba(251, 113, 133, 0.08) 0px, transparent 55%),
+    radial-gradient(at 90% 80%, rgba(239, 68, 68, 0.06) 0px, transparent 50%);
 }
 
-@keyframes pulse-emerald {
-  0%, 100% {
-    box-shadow: 0 0 25px rgba(16, 185, 129, 0.35), 0 0 50px rgba(16, 185, 129, 0.15);
-  }
-  50% {
-    box-shadow: 0 0 45px rgba(16, 185, 129, 0.65), 0 0 75px rgba(16, 185, 129, 0.25);
-  }
+/* Subtle vintage letter postal border */
+.letter-postal-border {
+  background: repeating-linear-gradient(
+    -45deg,
+    #e11d48,
+    #e11d48 14px,
+    #ffffff 14px,
+    #ffffff 22px,
+    #f43f5e 22px,
+    #f43f5e 36px,
+    #ffffff 36px,
+    #ffffff 44px
+  );
 }
 
 @keyframes subtle-float {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translateY(0px) rotate(0deg);
   }
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-8px) rotate(3deg);
   }
-}
-
-.animate-pulse-emerald {
-  animation: pulse-emerald 2.5s ease-in-out infinite;
 }
 
 .animate-subtle-float {
-  animation: subtle-float 5s ease-in-out infinite;
+  animation: subtle-float 6s ease-in-out infinite;
 }
 
-/* Subtle tech grid background overlay */
-.tech-grid {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+@keyframes pulse-heart {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-heart {
+  animation: pulse-heart 2s ease-in-out infinite;
 }

@@ -19,7 +19,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#080c14",
+  themeColor: "#faf6f5",
 };
 
 export default function RootLayout({
@@ -37,7 +37,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="min-h-full flex flex-col antialiased selection:bg-emerald-400 selection:text-slate-950">
+      <body className="min-h-full flex flex-col antialiased selection:bg-rose-200 selection:text-rose-950">
         {children}
       </body>
     </html>

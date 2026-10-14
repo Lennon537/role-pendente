@@ -13,22 +13,22 @@ interface Particle {
   opacity: number;
 }
 
-const PARTICLES = ["✨", "⚡", "🎯", "🔥", "🍸", "💫"];
+const ROMANTIC_PARTICLES = ["💌", "💖", "🌹", "✨", "❤️", "🕊️", "🍓", "🌸", "💕", "🤍"];
 
 export function FloatingHearts() {
   const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
-    // Generate particles only on the client
-    const items: Particle[] = Array.from({ length: 15 }).map((_, index) => ({
+    // Generate romantic ambient floating icons on client
+    const items: Particle[] = Array.from({ length: 18 }).map((_, index) => ({
       id: index,
-      icon: PARTICLES[index % PARTICLES.length],
+      icon: ROMANTIC_PARTICLES[index % ROMANTIC_PARTICLES.length],
       left: Math.random() * 92 + 4,
       top: Math.random() * 90 + 5,
-      size: Math.floor(Math.random() * 12) + 14,
+      size: Math.floor(Math.random() * 12) + 16,
       duration: Math.random() * 6 + 6,
       delay: Math.random() * 4,
-      opacity: Math.random() * 0.25 + 0.08,
+      opacity: Math.random() * 0.35 + 0.15,
     }));
     setParticles(items);
   }, []);
@@ -36,7 +36,7 @@ export function FloatingHearts() {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 pointer-events-none overflow-hidden z-0 select-none tech-grid"
+      className="fixed inset-0 pointer-events-none overflow-hidden z-0 select-none"
     >
       {particles.map((p) => (
         <span
