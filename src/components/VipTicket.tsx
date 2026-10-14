@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Ticket, QrCode, Sparkles, Check, Copy, Heart } from "lucide-react";
+import { Ticket, QrCode, Check, Copy } from "lucide-react";
 import { OptionItem } from "@/types/invite";
 
 interface VipTicketProps {
@@ -36,9 +36,9 @@ export function VipTicket({
   const displayName = guestName?.trim() || "Convidada Especial";
 
   const handleCopyTicket = async () => {
-    const text = `💌 CONVITE OFICIAL DE DATE 💌\nCódigo: ${ticketCode}\nConvidada Especial: ${displayName}\nRolê: ${
+    const text = `CONVITE OFICIAL DE ENCONTRO\nCódigo: ${ticketCode}\nConvidada Especial: ${displayName}\nRolê: ${
       selectedRole?.title || "Rolê combinado"
-    }\nData: ${selectedDia?.title || "A definir"}\nStatus: 100% Confirmado & Risadas Garantidas 💖`;
+    }\nData: ${selectedDia?.title || "A definir"}\nStatus: Confirmado • Zero Perrengue`;
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
@@ -49,7 +49,7 @@ export function VipTicket({
   return (
     <div className="relative w-full max-w-xl mx-auto my-4 transition-all">
       {/* Outer Romantic Letter Card */}
-      <div className="relative rounded-3xl bg-white border-2 border-rose-200/90 p-5 sm:p-7 shadow-[0_12px_35px_rgba(225,29,72,0.1)] overflow-hidden">
+      <div className="relative rounded-3xl bg-white border border-rose-200 p-5 sm:p-7 shadow-xl overflow-hidden">
         {/* Decorative Top Romantic Ribbon Line */}
         <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-red-600 via-rose-500 to-red-600" />
 
@@ -61,10 +61,10 @@ export function VipTicket({
             </div>
             <div>
               <span className="text-[10px] font-mono uppercase tracking-widest text-rose-600 font-extrabold block">
-                Carta-Convite de Date 💌
+                Convite Oficial de Encontro
               </span>
               <h4 className="text-base sm:text-lg font-black text-stone-900 tracking-wide">
-                PASSE VIP EXCLUSIVO ✨
+                PASSE VIP EXCLUSIVO
               </h4>
             </div>
           </div>
@@ -82,13 +82,13 @@ export function VipTicket({
         {/* Ticket Body */}
         <div className="py-4 space-y-3.5">
           {/* Passenger / Guest Name */}
-          <div className="bg-rose-50/80 p-3.5 rounded-2xl border border-rose-200/80 flex items-center justify-between">
+          <div className="bg-rose-50/70 p-3.5 rounded-2xl border border-rose-100 flex items-center justify-between">
             <div>
               <span className="text-[10px] font-extrabold uppercase tracking-wider text-rose-700/80 block">
                 Convidada de Honra
               </span>
               <p className="text-base sm:text-lg font-black text-rose-700">
-                {displayName} 💖
+                {displayName}
               </p>
             </div>
             <div className="text-right">
@@ -110,7 +110,7 @@ export function VipTicket({
                 Atividade Oficial
               </span>
               <p className="font-bold text-stone-800 truncate">
-                {selectedRole?.emoji} {selectedRole?.title || "Rolê Escolhido"}
+                {selectedRole?.title || "Rolê Escolhido"}
               </p>
             </div>
 
@@ -120,7 +120,7 @@ export function VipTicket({
                 Data do Encontro
               </span>
               <p className="font-bold text-stone-800 truncate">
-                {selectedDia?.emoji} {selectedDia?.title || "Data Marcada"}
+                {selectedDia?.title || "Data Marcada"}
               </p>
             </div>
 
@@ -131,17 +131,17 @@ export function VipTicket({
               </span>
               <p className="font-semibold text-stone-800">
                 {isSinuca ? (
-                  <>🍻 {selectedSinucaCombo?.title || "Cervejas e petiscos"}</>
+                  <>{selectedSinucaCombo?.title || "Cervejas e petiscos"}</>
                 ) : isFilmeGame ? (
-                  <>🍿 {selectedComida?.title || "Snacks do Sofá"}</>
+                  <>{selectedComida?.title || "Snacks do Sofá"}</>
                 ) : isFoodIncluded ? (
                   <>
-                    🍢 {selectedRole?.title} + 🍨{" "}
+                    {selectedRole?.title} +{" "}
                     {selectedSobremesa?.title || "Sobremesa"}
                   </>
                 ) : (
                   <>
-                    🍔 {selectedComida?.title} + 🍨{" "}
+                    {selectedComida?.title} +{" "}
                     {selectedSobremesa?.title || "Sobremesa"}
                   </>
                 )}
@@ -150,11 +150,11 @@ export function VipTicket({
           </div>
         </div>
 
-        {/* Perforation Cutouts (Left & Right) */}
+        {/* Perforation Cutouts - colored with background red #5c0716 */}
         <div className="relative my-3 flex items-center justify-between">
-          <div className="w-5 h-5 rounded-full bg-[#faf6f5] -ml-8 sm:-ml-10 border-r border-rose-300 shadow-inner" />
+          <div className="w-5 h-5 rounded-full bg-[#5c0716] -ml-8 sm:-ml-10 border-r border-rose-300 shadow-inner" />
           <div className="flex-1 border-t-2 border-dashed border-rose-200 mx-2" />
-          <div className="w-5 h-5 rounded-full bg-[#faf6f5] -mr-8 sm:-mr-10 border-l border-rose-300 shadow-inner" />
+          <div className="w-5 h-5 rounded-full bg-[#5c0716] -mr-8 sm:-mr-10 border-l border-rose-300 shadow-inner" />
         </div>
 
         {/* Ticket Footer (Barcode + Action) */}
@@ -191,7 +191,7 @@ export function VipTicket({
 
         {/* Screenshot Hint */}
         <p className="text-[11px] text-center text-stone-400 mt-3 font-medium">
-          📸 Tire um print deste cartão para guardar o nosso convite oficial! 💌
+          Tire um print deste cartão para guardar o comprovante oficial.
         </p>
       </div>
     </div>

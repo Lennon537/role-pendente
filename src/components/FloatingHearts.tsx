@@ -2,9 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 
-interface Particle {
+interface LightOrb {
   id: number;
-  icon: string;
   left: number;
   top: number;
   size: number;
@@ -13,24 +12,21 @@ interface Particle {
   opacity: number;
 }
 
-const ROMANTIC_PARTICLES = ["💌", "💖", "🌹", "✨", "❤️", "🕊️", "🍓", "🌸", "💕", "🤍"];
-
 export function FloatingHearts() {
-  const [particles, setParticles] = useState<Particle[]>([]);
+  const [orbs, setOrbs] = useState<LightOrb[]>([]);
 
   useEffect(() => {
-    // Generate romantic ambient floating icons on client
-    const items: Particle[] = Array.from({ length: 18 }).map((_, index) => ({
+    // Generate subtle glowing ambient light orbs (no emojis)
+    const items: LightOrb[] = Array.from({ length: 14 }).map((_, index) => ({
       id: index,
-      icon: ROMANTIC_PARTICLES[index % ROMANTIC_PARTICLES.length],
-      left: Math.random() * 92 + 4,
-      top: Math.random() * 90 + 5,
-      size: Math.floor(Math.random() * 12) + 16,
-      duration: Math.random() * 6 + 6,
-      delay: Math.random() * 4,
-      opacity: Math.random() * 0.35 + 0.15,
+      left: Math.random() * 94 + 3,
+      top: Math.random() * 92 + 4,
+      size: Math.floor(Math.random() * 120) + 60,
+      duration: Math.random() * 8 + 8,
+      delay: Math.random() * 5,
+      opacity: Math.random() * 0.15 + 0.05,
     }));
-    setParticles(items);
+    setOrbs(items);
   }, []);
 
   return (
@@ -38,21 +34,26 @@ export function FloatingHearts() {
       aria-hidden="true"
       className="fixed inset-0 pointer-events-none overflow-hidden z-0 select-none"
     >
-      {particles.map((p) => (
+      {/* Decorative ambient background glows */}
+      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-rose-500/20 blur-3xl" />
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-red-600/25 blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[36rem] h-[36rem] rounded-full bg-rose-600/15 blur-[100px]" />
+
+      {/* Subtle floating light particles */}
+      {orbs.map((o) => (
         <span
-          key={p.id}
-          className="absolute inline-block transition-opacity animate-subtle-float"
+          key={o.id}
+          className="absolute rounded-full bg-rose-300/30 blur-xl animate-subtle-float pointer-events-none"
           style={{
-            left: `${p.left}%`,
-            top: `${p.top}%`,
-            fontSize: `${p.size}px`,
-            opacity: p.opacity,
-            animationDuration: `${p.duration}s`,
-            animationDelay: `${p.delay}s`,
+            left: `${o.left}%`,
+            top: `${o.top}%`,
+            width: `${o.size}px`,
+            height: `${o.size}px`,
+            opacity: o.opacity,
+            animationDuration: `${o.duration}s`,
+            animationDelay: `${o.delay}s`,
           }}
-        >
-          {p.icon}
-        </span>
+        />
       ))}
     </div>
   );

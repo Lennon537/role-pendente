@@ -1,38 +1,48 @@
 "use client";
 
 import React, { useState } from "react";
-import { ShieldCheck, ChevronDown, CheckCircle2, Award } from "lucide-react";
+import {
+  ShieldCheck,
+  ChevronDown,
+  CheckCircle2,
+  Award,
+  Ban,
+  Utensils,
+  Clock,
+  Trophy,
+  Handshake,
+} from "lucide-react";
 
 const GUARANTEE_CLAUSES = [
   {
-    icon: "🚫",
+    icon: Ban,
     title: "Cláusula Anti-Tédio & Assuntos Proibidos",
     description:
       "Terminantemente proibido falar sobre ex, política chata, reuniões de trabalho intermináveis ou crises existenciais nos primeiros 60 minutos.",
   },
   {
-    icon: "🍻",
+    icon: Utensils,
     title: "Padrão Ouro Gastronômico",
     description:
-      "A comida chega quentinha na mesa e a cerveja/refrigerante vem trincando de gelado. Zero perrengue com pedido ruim.",
+      "A comida chega quentinha na mesa e a bebida vem trincando de gelada. Zero perrengue com pedido ruim.",
   },
   {
-    icon: "⏱️",
+    icon: Clock,
     title: "Garantia de Saída dos 40 Minutos",
     description:
       "Se em 40 minutos o papo estiver estranho, qualquer um pode dizer que esqueceu o feijão no fogo sem ressentimentos (embora a probabilidade seja de ficarmos horas rindo).",
   },
   {
-    icon: "🏆",
+    icon: Trophy,
     title: "Acordo de Fair Play (Sinuca / Videogame)",
     description:
-      "Quem perder a partida paga a próxima rodada no balcão ou posta um story sincero me elogiando.",
+      "Quem perder a partida paga a próxima rodada no balcão ou posta um story sincero elogiando o parceiro.",
   },
   {
-    icon: "🤝",
+    icon: Handshake,
     title: "Sem 'Show' na Conta",
     description:
-      "Sem climão, sem disputa de calculadora e sem drama: tudo dividido de forma justa, cavalheiresca e descomplicada.",
+      "Sem climão, sem disputa de calculadora e sem drama: tudo dividido de forma justa, descomplicada e cavalheira.",
   },
 ];
 
@@ -54,14 +64,14 @@ export function AntiPerrengueGuarantee() {
           <div>
             <div className="flex items-center gap-2">
               <h4 className="font-bold text-stone-900 text-sm sm:text-base group-hover:text-rose-700 transition-colors">
-                Garantia de Date Sem Perrengue 🛡️
+                Garantia de Encontro Sem Perrengue
               </h4>
               <span className="text-[10px] font-mono font-bold bg-rose-100 text-rose-700 border border-rose-200 px-2 py-0.5 rounded-full">
-                100% Blindado
+                100% Confirmado
               </span>
             </div>
             <p className="text-xs text-stone-500">
-              5 Cláusulas Oficiais de Cavalheirismo Moderno & Boa Convivência
+              5 Cláusulas Oficiais de Cavalheirismo & Boa Convivência
             </p>
           </div>
         </div>
@@ -78,31 +88,36 @@ export function AntiPerrengueGuarantee() {
       {/* Expanded Clauses */}
       {isExpanded && (
         <div className="mt-4 pt-3 border-t border-rose-100 space-y-2.5 animate-in fade-in duration-200">
-          {GUARANTEE_CLAUSES.map((clause, index) => (
-            <div
-              key={index}
-              className="flex items-start gap-2.5 p-2.5 rounded-xl bg-rose-50/50 border border-rose-100"
-            >
-              <span className="text-lg flex-shrink-0 mt-0.5">{clause.icon}</span>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-1.5 mb-0.5">
-                  <span className="text-xs font-bold text-stone-800">
-                    {clause.title}
-                  </span>
-                  <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 flex-shrink-0" />
+          {GUARANTEE_CLAUSES.map((clause, index) => {
+            const Icon = clause.icon;
+            return (
+              <div
+                key={index}
+                className="flex items-start gap-2.5 p-2.5 rounded-xl bg-rose-50/50 border border-rose-100"
+              >
+                <div className="w-6 h-6 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Icon className="w-3.5 h-3.5" />
                 </div>
-                <p className="text-[11px] text-stone-600 leading-relaxed">
-                  {clause.description}
-                </p>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="text-xs font-bold text-stone-800">
+                      {clause.title}
+                    </span>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-rose-600 flex-shrink-0" />
+                  </div>
+                  <p className="text-[11px] text-stone-600 leading-relaxed">
+                    {clause.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
           {/* Seal */}
           <div className="mt-3 p-2.5 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-between text-xs text-rose-700">
             <span className="flex items-center gap-1.5 font-bold">
               <Award className="w-4 h-4 text-rose-600" />
-              Selo de Encontro Sem Clichê & Sem Drama 💖
+              Selo de Encontro Sem Clichê e Sem Drama
             </span>
             <span className="font-mono text-[10px] text-stone-500">Válido para este rolê</span>
           </div>

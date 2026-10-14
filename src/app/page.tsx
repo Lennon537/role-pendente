@@ -17,10 +17,8 @@ import {
   Send,
   Zap,
   CheckCircle2,
-  ShieldCheck,
   Beer,
   Popcorn,
-  Heart,
   Mail,
 } from "lucide-react";
 
@@ -40,32 +38,32 @@ import { VipTicket } from "@/components/VipTicket";
 import { AntiPerrengueGuarantee } from "@/components/AntiPerrengueGuarantee";
 import { DestinyRouletteModal } from "@/components/DestinyRouletteModal";
 
-// Dynamic persuasive phrases displayed inside the fugitive "Não" button
+// Clean persuasive phrases without emoji clutter
 const NO_BUTTON_PHRASES = [
-  "Prefiro o tédio 🥱", // initial
-  "Tem certeza disso? 🤔",
-  "Vai ter comida boa pô! 🤤",
-  "Eu pago a primeira rodada! 🍻",
-  "Prometo que sou legal! 😇",
-  "Dá uma chance pro rolê! 🥺",
-  "Olha a batata frita esperando! 🍟",
-  "Nem cansa o dedo tentando! 😂",
-  "O botão vermelho é bem mais bonito! 💖",
-  "Eu até deixo você escolher a música! 🎶",
-  "Até meu cachorro apoia esse date! 🐶",
-  "Você tá rindo né? Clica no sim! 😏",
-  "Cansei de correr, aceita logo! 🏃‍♂️💨",
+  "Prefiro o tédio", // initial
+  "Tem certeza disso?",
+  "Vai ter comida boa",
+  "Eu pago a primeira rodada",
+  "Prometo que sou legal",
+  "Dá uma chance pro rolê",
+  "Olha a comida boa esperando",
+  "Nem cansa o dedo tentando",
+  "O botão vermelho é bem melhor",
+  "Eu deixo você escolher a música",
+  "Até meu cachorro apoia esse encontro",
+  "Você tá rindo, né? Clica no sim",
+  "Cansei de correr, aceita logo",
 ];
 
-// Reaction banner messages trying to convince with humor
+// Clean reaction banner messages
 const PERSUASIVE_MESSAGES = [
   "",
-  "Pensa com carinho: comida boa, risada garantida e clima leve! 🤤",
-  "Eu prometo que a conversa é boa e o rolê vai valer a pena! 😏",
-  "Você já perdeu calorias tentando clicar no Não... o Sim tá bem ali! 😂",
-  "Olha o esforço pra fugir! Aceita logo, vai ser muito bom! 💖",
-  "Não adianta caçar pela tela toda, esse rolê já tá decretado! 💌",
-  "Até o botão desistiu de ser clicado... a resposta certa é aceitar! ✨",
+  "Pensa com carinho: comida boa, risada garantida e clima leve!",
+  "Eu prometo que a conversa é boa e o rolê vai valer a pena!",
+  "Você já perdeu calorias tentando clicar no Não... o Sim tá bem ali!",
+  "Olha o esforço pra fugir! Aceita logo, vai ser muito bom!",
+  "Não adianta caçar pela tela toda, esse rolê já tá decretado!",
+  "Até o botão desistiu de ser clicado... a resposta certa é aceitar!",
 ];
 
 function InviteAppContent() {
@@ -131,10 +129,10 @@ function InviteAppContent() {
     if (step === "resumo") {
       try {
         confetti({
-          particleCount: 110,
-          spread: 85,
+          particleCount: 95,
+          spread: 80,
           origin: { y: 0.5 },
-          colors: ["#e11d48", "#f43f5e", "#fb7185", "#fbbf24", "#ffffff"],
+          colors: ["#e11d48", "#f43f5e", "#fb7185", "#ffffff"],
         });
       } catch {
         // Fallback
@@ -192,10 +190,10 @@ function InviteAppContent() {
   const handleAcceptInvite = () => {
     try {
       confetti({
-        particleCount: 85,
-        spread: 70,
+        particleCount: 75,
+        spread: 65,
         origin: { y: 0.6 },
-        colors: ["#e11d48", "#f43f5e", "#fb7185", "#fbbf24", "#ffffff"],
+        colors: ["#e11d48", "#f43f5e", "#fb7185", "#ffffff"],
       });
     } catch {}
     setStep("role");
@@ -207,7 +205,7 @@ function InviteAppContent() {
 
     if (step === "role") {
       if (!selections.role) {
-        setValidationError("Selecione um dos rolês acima para continuar! 💌");
+        setValidationError("Selecione um dos rolês acima para continuar.");
         return;
       }
       if (isSinuca) {
@@ -219,35 +217,33 @@ function InviteAppContent() {
       }
     } else if (step === "sinuca_custom") {
       if (!selections.sinuca_combo) {
-        setValidationError("Escolha o combo de cerveja e petisco da partida! 🍻");
+        setValidationError("Escolha o combo de cerveja e petisco da partida.");
         return;
       }
-      // Sinuca skips sobremesa completely, jumps directly to dia!
       setStep("dia");
     } else if (step === "comida") {
       if (!selections.comida) {
         setValidationError(
           isFilmeGame
-            ? "Selecione as guloseimas da nossa sessão para continuar! 🍿"
-            : "Selecione o que vamos comer para continuar! 🍔"
+            ? "Selecione as opções da nossa sessão para continuar."
+            : "Selecione o que vamos comer para continuar."
         );
         return;
       }
       if (isFilmeGame) {
-        // Filme & Jogos pula a sobremesa e vai direto para o dia!
         setStep("dia");
       } else {
         setStep("sobremesa");
       }
     } else if (step === "sobremesa") {
       if (!selections.sobremesa) {
-        setValidationError("Escolha uma sobremesa para fechar com estilo! 🍨");
+        setValidationError("Escolha uma sobremesa para fechar com estilo.");
         return;
       }
       setStep("dia");
     } else if (step === "dia") {
       if (!selections.dia) {
-        setValidationError("Escolha o melhor dia na sua agenda! 📅");
+        setValidationError("Escolha o melhor dia na sua agenda.");
         return;
       }
       setStep("resumo");
@@ -300,17 +296,17 @@ function InviteAppContent() {
   // Current phrase displayed inside the fugitive button
   const currentNoButtonText =
     noEvasions >= 10
-      ? "Tá bom, você venceu... clica no vermelho! 💖"
+      ? "Tá bom, você venceu... clica no vermelho!"
       : NO_BUTTON_PHRASES[noEvasions % NO_BUTTON_PHRASES.length];
 
   // Helper text for persuasive reactions with persistence milestones
   const getEvasionMessage = () => {
     if (noEvasions === 0) return null;
     if (noEvasions >= 10) {
-      return "O botão de recusar já pediu arrego e aceitou a cartinha 🏳️... Clica no Sim!";
+      return "O botão de recusar já pediu arrego... Clica no Sim!";
     }
     if (noEvasions >= 7) {
-      return `Você já tentou fugir ${noEvasions} vezes... com essa energia a gente já tinha ido e voltado do rolê! 😂`;
+      return `Você já tentou fugir ${noEvasions} vezes... com essa energia a gente já tinha ido e voltado do rolê!`;
     }
     const index = Math.min(noEvasions, PERSUASIVE_MESSAGES.length - 1);
     return PERSUASIVE_MESSAGES[index] || PERSUASIVE_MESSAGES[PERSUASIVE_MESSAGES.length - 1];
@@ -325,54 +321,54 @@ function InviteAppContent() {
   const selectedDia = DIA_OPTIONS.find((o) => o.id === selections.dia);
   const selectedSinucaCombo = SINUCA_OPTIONS.find((o) => o.id === selections.sinuca_combo);
 
-  // Response introduction from the girl back to the sender
+  // Clean response introduction
   const responseIntro = guestName?.trim()
-    ? `Oi! Aceitei seu convite, ${guestName.trim()} aqui! 💌✨`
-    : `Convite aceito! O nosso rolê tá confirmado. 💌✨`;
+    ? `Oi! Aceitei seu convite, ${guestName.trim()} aqui!`
+    : `Convite aceito! Nosso rolê está confirmado.`;
 
-  // Formatted WhatsApp message with confidence and charm
+  // Formatted WhatsApp message without emoji spam
   let formattedWhatsAppMessage = "";
   if (isSinuca) {
     formattedWhatsAppMessage = `${responseIntro}
 
 Aqui está a nossa programação oficial:
-🎱 Rolê: ${selectedRole?.title || "Partida de sinuca"}
-🍻 Cervejas & Petisco: ${selectedSinucaCombo?.title || "A definir"}
-📅 Dia: ${selectedDia?.title || "A definir"}
+- Rolê: ${selectedRole?.title || "Partida de sinuca"}
+- Cervejas & Petisco: ${selectedSinucaCombo?.title || "A definir"}
+- Data: ${selectedDia?.title || "A definir"}
 
-Garantia de date sem perrengue ativada! 🛡️
-Qual horário fica melhor pra gente se encontrar? 🚀`;
+Garantia de encontro sem perrengue ativada!
+Qual horário fica melhor pra gente se encontrar?`;
   } else if (isFilmeGame) {
     formattedWhatsAppMessage = `${responseIntro}
 
 Aqui está a nossa programação oficial:
-🎮 Rolê: ${selectedRole?.title || "Filme no sofá, videogame ou baralho"}
-🍿 Snacks & Guloseimas: ${selectedComida?.title || "A definir"}
-📅 Dia: ${selectedDia?.title || "A definir"}
+- Rolê: ${selectedRole?.title || "Filme no sofá, videogame ou baralho"}
+- Snacks: ${selectedComida?.title || "A definir"}
+- Data: ${selectedDia?.title || "A definir"}
 
-Garantia de date sem perrengue ativada! 🛡️
-Qual horário fica melhor pra gente se encontrar? 🚀`;
+Garantia de encontro sem perrengue ativada!
+Qual horário fica melhor pra gente se encontrar?`;
   } else if (isFoodIncluded) {
     formattedWhatsAppMessage = `${responseIntro}
 
 Aqui está a nossa programação oficial:
-🎯 Rolê & Comida: ${selectedRole?.title || "A definir"}
-🍨 Sobremesa: ${selectedSobremesa?.title || "A definir"}
-📅 Dia: ${selectedDia?.title || "A definir"}
+- Rolê & Comida: ${selectedRole?.title || "A definir"}
+- Sobremesa: ${selectedSobremesa?.title || "A definir"}
+- Data: ${selectedDia?.title || "A definir"}
 
-Garantia de date sem perrengue ativada! 🛡️
-Qual horário fica melhor pra gente se encontrar? 🚀`;
+Garantia de encontro sem perrengue ativada!
+Qual horário fica melhor pra gente se encontrar?`;
   } else {
     formattedWhatsAppMessage = `${responseIntro}
 
 Aqui está a nossa programação oficial:
-🎯 Rolê: ${selectedRole?.title || "A definir"}
-🍔 Comida: ${selectedComida?.title || "A definir"}
-🍨 Sobremesa: ${selectedSobremesa?.title || "A definir"}
-📅 Dia: ${selectedDia?.title || "A definir"}
+- Rolê: ${selectedRole?.title || "A definir"}
+- Comida: ${selectedComida?.title || "A definir"}
+- Sobremesa: ${selectedSobremesa?.title || "A definir"}
+- Data: ${selectedDia?.title || "A definir"}
 
-Garantia de date sem perrengue ativada! 🛡️
-Qual horário fica melhor pra gente se encontrar? 🚀`;
+Garantia de encontro sem perrengue ativada!
+Qual horário fica melhor pra gente se encontrar?`;
   }
 
   // WhatsApp URLs:
@@ -395,8 +391,8 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
   };
 
   return (
-    <main className="relative min-h-screen w-full flex items-center justify-center p-4 sm:p-6 md:p-8 overflow-hidden bg-mesh-letter">
-      {/* Background ambient floating particles */}
+    <main className="relative min-h-screen w-full flex items-center justify-center p-4 sm:p-6 md:p-8 overflow-hidden bg-red-diferenciado">
+      {/* Subtle ambient lighting effects */}
       <FloatingHearts />
 
       {/* ========================================================
@@ -417,7 +413,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
             zIndex: 60,
             transition: "all 0.16s cubic-bezier(0.34, 1.56, 0.64, 1)",
           }}
-          className={`font-bold text-sm sm:text-base py-3 px-5 rounded-xl border shadow-lg cursor-pointer select-none whitespace-nowrap active:scale-95 transition-all ${
+          className={`font-bold text-sm sm:text-base py-3 px-5 rounded-xl border shadow-xl cursor-pointer select-none whitespace-nowrap active:scale-95 transition-all ${
             noEvasions >= 10
               ? "bg-rose-100 text-rose-800 border-rose-400 shadow-[0_4px_20px_rgba(225,29,72,0.3)] animate-bounce"
               : "bg-white/95 hover:bg-rose-50 text-rose-700 border-2 border-rose-300 shadow-[0_4px_20px_rgba(244,63,94,0.25)] animate-pulse"
@@ -427,8 +423,8 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
         </button>
       )}
 
-      {/* Main Container: Styled like an elegant, warm love letter */}
-      <div className="relative z-10 w-full max-w-3xl bg-white/95 backdrop-blur-xl rounded-3xl shadow-[0_20px_60px_-15px_rgba(225,29,72,0.12),0_4px_25px_rgba(0,0,0,0.04)] border border-rose-200/90 p-6 sm:p-8 md:p-10 transition-all duration-300 text-stone-800">
+      {/* Main Container Card: Pristine white stationery card on rich red background */}
+      <div className="relative z-10 w-full max-w-3xl bg-white rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.45),0_10px_30px_rgba(0,0,0,0.25)] border border-rose-100/90 p-6 sm:p-8 md:p-10 transition-all duration-300 text-stone-800">
         {/* Accent top romantic ribbon line */}
         <div className="absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-red-600 via-rose-500 to-red-600 rounded-t-3xl opacity-90" />
 
@@ -450,7 +446,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
             {/* Stamp Badge */}
             <div className="mb-3 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold tracking-wide uppercase shadow-xs">
               <Mail className="w-3.5 h-3.5 text-rose-600" />
-              <span>Carta-Convite Especial</span>
+              <span>Convite Especial</span>
             </div>
 
             {/* Central Question with Guest Name personalization */}
@@ -458,10 +454,10 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
               {guestName ? (
                 <>
                   <span className="text-rose-600 block sm:inline">{guestName}, </span>
-                  <span>temos um rolê pendente. 💌</span>
+                  <span>temos um rolê pendente.</span>
                 </>
               ) : (
-                "Temos um rolê pendente. 💌"
+                "Temos um rolê pendente."
               )}
             </h1>
 
@@ -473,7 +469,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
               </div>
             ) : null}
 
-            {/* Stage Arena styled as warm letter note */}
+            {/* Stage Arena styled as warm note */}
             <div className="relative w-full rounded-2xl bg-gradient-to-b from-rose-50/70 to-pink-50/30 border border-rose-200/80 p-6 sm:p-7 flex flex-col items-center justify-center overflow-hidden transition-all shadow-xs">
               {/* Evasion helper badge */}
               {noEvasions > 0 && (
@@ -485,7 +481,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                 </div>
               )}
 
-              {/* Botões: Ao lado um do outro inicialmente (inclusive no mobile), e perfeitamente centralizado ao mover o 'Não' */}
+              {/* Botões: Ao lado um do outro inicialmente, e perfeitamente centralizado ao mover o 'Não' */}
               <div
                 className={`w-full mx-auto min-h-[64px] transition-all duration-300 ${
                   hasMovedNo
@@ -493,7 +489,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                     : "grid grid-cols-2 gap-2.5 sm:gap-3.5 max-w-md"
                 }`}
               >
-                {/* Botão SIM! (Fixo, vermelho apaixonante & confiante - centraliza perfeitamente quando o Não foge) */}
+                {/* Botão SIM! (Fixo, vermelho marcante - centraliza perfeitamente quando o Não foge) */}
                 <button
                   ref={simBtnRef}
                   type="button"
@@ -503,7 +499,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                     hasMovedNo ? "w-full max-w-sm" : "w-full"
                   }`}
                 >
-                  <span>Bora, desafio aceito! 💖</span>
+                  <span>Bora, desafio aceito!</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
 
@@ -526,15 +522,15 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
               {/* Hint */}
               <p className="text-[11px] text-stone-500 mt-5 font-medium">
                 {hasMovedNo
-                  ? "O botão de recusar tá te dando motivos pra aceitar... clica no vermelho! 🤭"
-                  : "Dica: você pode até tentar recusar, mas este convite foi feito com carinho. 😉"}
+                  ? "O botão de recusar tá te dando motivos pra aceitar... clica no vermelho!"
+                  : "Dica: você pode até tentar recusar, mas este convite foi feito com carinho."}
               </p>
             </div>
           </div>
         )}
 
         {/* ========================================================
-            ETAPA 2: O ROLÊ (ATIVIDADE ECONÔMICA)
+            ETAPA 2: O ROLÊ (ATIVIDADE)
            ======================================================== */}
         {step === "role" && (
           <div className="space-y-5 animate-in fade-in duration-200">
@@ -543,7 +539,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                 <Compass className="w-5 h-5" />
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900">
-                Qual vai ser o rolê? 🎯
+                Qual vai ser o rolê?
               </h2>
               <p className="text-xs sm:text-sm text-stone-500 mt-1 mb-2">
                 Escolha a vibe da noite para a gente se divertir sem frescura
@@ -617,12 +613,12 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
               >
                 <span>
                   {isSinuca
-                    ? "Avançar para Cervejas & Petisco 🍻"
+                    ? "Avançar para Cervejas & Petisco"
                     : isFilmeGame
-                    ? "Avançar para os Snacks do Sofá 🍿"
+                    ? "Avançar para os Snacks"
                     : isFoodIncluded
-                    ? "Avançar para a Sobremesa 🍨"
-                    : "Avançar para a Comida 🍔"}
+                    ? "Avançar para a Sobremesa"
+                    : "Avançar para a Comida"}
                 </span>
                 <ArrowRight className="w-4 h-4" />
               </button>
@@ -631,7 +627,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
         )}
 
         {/* ========================================================
-            ETAPA PERSONALIZADA: SINUCA (Bebidas & Petiscos da Partida)
+            ETAPA PERSONALIZADA: SINUCA (Bebidas & Petiscos)
            ======================================================== */}
         {step === "sinuca_custom" && (
           <div className="space-y-5 animate-in fade-in duration-200">
@@ -640,7 +636,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                 <Beer className="w-6 h-6" />
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900">
-                Bebidas & Petiscos da Sinuca 🍻🎱
+                Bebidas & Petiscos da Sinuca
               </h2>
               <p className="text-xs sm:text-sm text-stone-500 mt-1">
                 Quantas geladas vamos tomar e qual petisco vai pra mesa?
@@ -691,7 +687,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                     : "bg-stone-100 text-stone-400 border border-stone-200 cursor-not-allowed shadow-none"
                 }`}
               >
-                <span>Avançar para o Dia 📅</span>
+                <span>Avançar para o Dia</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -714,14 +710,12 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                 </div>
               )}
               <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900">
-                {isFilmeGame
-                  ? "Snacks & Guloseimas do Sofá 🍿🎮"
-                  : "O que vai forrar o estômago? 🍔"}
+                {isFilmeGame ? "Snacks do Sofá" : "O que vamos comer?"}
               </h2>
               <p className="text-xs sm:text-sm text-stone-500 mt-1">
                 {isFilmeGame
                   ? "Pipoca, brigadeiro, batata frita ou doces: escolha os petiscos da nossa sessão"
-                  : "Lanches de respeito que matam a fome com dignidade"}
+                  : "Lanches de respeito para matar a fome com dignidade"}
               </p>
             </div>
 
@@ -769,7 +763,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                     : "bg-stone-100 text-stone-400 border border-stone-200 cursor-not-allowed shadow-none"
                 }`}
               >
-                <span>{isFilmeGame ? "Avançar para o Dia 📅" : "Escolher Sobremesa"}</span>
+                <span>{isFilmeGame ? "Avançar para o Dia" : "Escolher Sobremesa"}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -777,7 +771,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
         )}
 
         {/* ========================================================
-            ETAPA 4: A SOBREMESA (Pula para quem escolheu sinuca e filme_game)
+            ETAPA 4: A SOBREMESA
            ======================================================== */}
         {step === "sobremesa" && (
           <div className="space-y-5 animate-in fade-in duration-200">
@@ -786,7 +780,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                 <IceCream className="w-5 h-5" />
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900">
-                Para adoçar a vida 🍨
+                Para adoçar a vida
               </h2>
               <p className="text-xs sm:text-sm text-stone-500 mt-1">
                 Aquele docinho essencial para fechar a noite em alto nível
@@ -837,7 +831,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                     : "bg-stone-100 text-stone-400 border border-stone-200 cursor-not-allowed shadow-none"
                 }`}
               >
-                <span>Definir o Dia 📅</span>
+                <span>Definir o Dia</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -854,7 +848,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                 <Calendar className="w-5 h-5" />
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900">
-                Qual dia fica melhor para você? 📅
+                Qual dia fica melhor para você?
               </h2>
               <p className="text-xs sm:text-sm text-stone-500 mt-1">
                 Escolha o momento perfeito para reservarmos na agenda
@@ -905,8 +899,8 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                     : "bg-stone-100 text-stone-400 border border-stone-200 cursor-not-allowed shadow-none"
                 }`}
               >
-                <Sparkles className="w-4 h-4" />
-                <span>Ver Resumo e Enviar no WhatsApp ✨</span>
+                <span>Ver Resumo e Enviar no WhatsApp</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -920,10 +914,10 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
             {/* Header */}
             <div className="text-center">
               <div className="inline-block p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 mb-2 shadow-xs">
-                <Heart className="w-8 h-8 fill-rose-600 text-rose-600" />
+                <CheckCircle2 className="w-8 h-8 text-rose-600" />
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900">
-                Convite Fechado com Sucesso! 💌
+                Convite Confirmado com Sucesso!
               </h2>
               <p className="text-xs sm:text-sm text-stone-500 mt-1">
                 Tudo alinhado para o nosso encontro. Só mandar a confirmação:
@@ -948,10 +942,10 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
               {/* Header Status */}
               <div className="flex items-center justify-between pb-4 mb-4 border-b border-rose-100">
                 <span className="text-xs font-bold font-mono uppercase tracking-wider text-rose-600 flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4" /> CONFIRMAÇÃO DO ROLÊ 💌
+                  <CheckCircle2 className="w-4 h-4" /> CONFIRMAÇÃO DO ENCONTRO
                 </span>
                 <span className="text-[11px] font-semibold bg-rose-50 text-rose-700 border border-rose-200 px-2.5 py-0.5 rounded-md">
-                  Conta Justa & Boas Risadas
+                  Conta Justa & Boas Conversas
                 </span>
               </div>
 
@@ -965,9 +959,6 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
               >
                 {/* 1. Rolê */}
                 <div className="flex items-start gap-3 p-3 rounded-xl bg-rose-50/60 border border-rose-100">
-                  <span className="text-2xl flex-shrink-0">
-                    {selectedRole?.emoji || "🍢"}
-                  </span>
                   <div className="min-w-0 flex-1">
                     <span className="text-[10px] font-extrabold uppercase text-stone-500 block tracking-wider">
                       {isFoodIncluded ? "O Rolê & Comida" : "O Rolê"}
@@ -981,9 +972,6 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                 {/* Se for Sinuca: exibe Cervejas & Petiscos */}
                 {isSinuca && (
                   <div className="flex items-start gap-3 p-3 rounded-xl bg-rose-50/60 border border-rose-100">
-                    <span className="text-2xl flex-shrink-0">
-                      {selectedSinucaCombo?.emoji || "🍻"}
-                    </span>
                     <div className="min-w-0 flex-1">
                       <span className="text-[10px] font-extrabold uppercase text-stone-500 block tracking-wider">
                         Cervejas & Petiscos
@@ -998,9 +986,6 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                 {/* Comida tradicional ou Snacks do Sofá */}
                 {!isSinuca && !isFoodIncluded && (
                   <div className="flex items-start gap-3 p-3 rounded-xl bg-rose-50/60 border border-rose-100">
-                    <span className="text-2xl flex-shrink-0">
-                      {selectedComida?.emoji || (isFilmeGame ? "🍿" : "🍔")}
-                    </span>
                     <div className="min-w-0 flex-1">
                       <span className="text-[10px] font-extrabold uppercase text-stone-500 block tracking-wider">
                         {isFilmeGame ? "Snacks do Sofá" : "A Comida"}
@@ -1012,12 +997,9 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                   </div>
                 )}
 
-                {/* Sobremesa (NÃO exibida para Sinuca E NEM para Filme no Sofá!) */}
+                {/* Sobremesa */}
                 {!isSinuca && !isFilmeGame && (
                   <div className="flex items-start gap-3 p-3 rounded-xl bg-rose-50/60 border border-rose-100">
-                    <span className="text-2xl flex-shrink-0">
-                      {selectedSobremesa?.emoji || "🍨"}
-                    </span>
                     <div className="min-w-0 flex-1">
                       <span className="text-[10px] font-extrabold uppercase text-stone-500 block tracking-wider">
                         A Sobremesa
@@ -1031,9 +1013,6 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
 
                 {/* Dia */}
                 <div className="flex items-start gap-3 p-3 rounded-xl bg-rose-50/60 border border-rose-100">
-                  <span className="text-2xl flex-shrink-0">
-                    {selectedDia?.emoji || "📅"}
-                  </span>
                   <div className="min-w-0 flex-1">
                     <span className="text-[10px] font-extrabold uppercase text-stone-500 block tracking-wider">
                       Data Marcada
@@ -1047,8 +1026,8 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
 
               {/* Bottom tag */}
               <div className="mt-4 pt-3 border-t border-rose-100 flex items-center justify-between text-xs text-stone-500">
-                <span>Garantia: Boas risadas</span>
-                <span className="font-semibold text-rose-600">Zero perrengue 💖</span>
+                <span>Garantia: Boas conversas</span>
+                <span className="font-semibold text-rose-600">Zero perrengue</span>
               </div>
             </div>
 
@@ -1069,7 +1048,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                       particleCount: 90,
                       spread: 65,
                       origin: { y: 0.7 },
-                      colors: ["#e11d48", "#f43f5e", "#fb7185", "#fbbf24", "#ffffff"],
+                      colors: ["#e11d48", "#f43f5e", "#fb7185", "#ffffff"],
                     });
                   } catch {}
                 }}
@@ -1078,8 +1057,8 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                 <Send className="w-5 h-5 fill-current group-hover:translate-x-1 transition-transform" />
                 <span>
                   {isDesktop
-                    ? "Enviar no WhatsApp Web ✨"
-                    : "Enviar no WhatsApp ✨"}
+                    ? "Enviar no WhatsApp Web"
+                    : "Enviar no WhatsApp"}
                 </span>
               </a>
 
@@ -1092,7 +1071,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                     rel="noopener noreferrer"
                     className="text-xs text-stone-500 hover:text-rose-600 underline underline-offset-4 inline-flex items-center gap-1.5 transition-colors cursor-pointer"
                   >
-                    <span>Prefere abrir no aplicativo do WhatsApp? Clique aqui 📱</span>
+                    <span>Prefere abrir no aplicativo do WhatsApp? Clique aqui</span>
                   </a>
                 ) : (
                   <a
@@ -1101,7 +1080,7 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
                     rel="noopener noreferrer"
                     className="text-xs text-stone-500 hover:text-rose-600 underline underline-offset-4 inline-flex items-center gap-1.5 transition-colors cursor-pointer"
                   >
-                    <span>Abrir no WhatsApp Web 💻</span>
+                    <span>Abrir no WhatsApp Web</span>
                   </a>
                 )}
               </div>
@@ -1140,9 +1119,9 @@ Qual horário fica melhor pra gente se encontrar? 🚀`;
         )}
       </div>
 
-      {/* Romantic Footer */}
-      <footer className="fixed bottom-2 text-center text-stone-400 text-[11px] pointer-events-none select-none">
-        Feito com carinho para quem gosta de comida boa e risada garantida 💌
+      {/* Footer */}
+      <footer className="fixed bottom-2 text-center text-white/50 text-[11px] pointer-events-none select-none">
+        Feito com carinho para um encontro sem perrengue
       </footer>
     </main>
   );
@@ -1152,8 +1131,8 @@ export default function InvitePage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#faf6f5] flex items-center justify-center text-rose-600 font-mono text-sm">
-          Carregando a cartinha... 💌
+        <div className="min-h-screen bg-[#5c0716] flex items-center justify-center text-rose-200 font-mono text-sm">
+          Carregando convite...
         </div>
       }
     >
