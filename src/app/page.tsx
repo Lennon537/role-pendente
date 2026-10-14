@@ -945,7 +945,7 @@ Qual horário fica melhor pra gente se encontrar?`;
                   <CheckCircle2 className="w-4 h-4" /> CONFIRMAÇÃO DO ENCONTRO
                 </span>
                 <span className="text-[11px] font-semibold bg-rose-50 text-rose-700 border border-rose-200 px-2.5 py-0.5 rounded-md">
-                  Conta Justa & Boas Conversas
+                  Clima Leve & Boas Conversas
                 </span>
               </div>
 

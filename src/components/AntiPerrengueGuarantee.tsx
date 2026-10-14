@@ -10,7 +10,7 @@ import {
   Utensils,
   Clock,
   Trophy,
-  Handshake,
+  Music,
 } from "lucide-react";
 
 const GUARANTEE_CLAUSES = [
@@ -39,10 +39,10 @@ const GUARANTEE_CLAUSES = [
       "Quem perder a partida paga a próxima rodada no balcão ou posta um story sincero elogiando o parceiro.",
   },
   {
-    icon: Handshake,
-    title: "Sem 'Show' na Conta",
+    icon: Music,
+    title: "Passe Livre de Trilha Sonora",
     description:
-      "Sem climão, sem disputa de calculadora e sem drama: tudo dividido de forma justa, descomplicada e cavalheira.",
+      "Você tem o controle da música e da playlist no caminho. Foco total em uma noite leve, divertida e sem climão.",
   },
 ];
 
