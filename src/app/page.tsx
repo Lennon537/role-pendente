@@ -39,6 +39,7 @@ import { PhoneModal } from "@/components/PhoneModal";
 import { VipTicket } from "@/components/VipTicket";
 import { AntiPerrengueGuarantee } from "@/components/AntiPerrengueGuarantee";
 import { DestinyRouletteModal } from "@/components/DestinyRouletteModal";
+import { ShareLinkModal } from "@/components/ShareLinkModal";
 
 // Dynamic persuasive phrases displayed inside the fugitive "Não" button
 const NO_BUTTON_PHRASES = [
@@ -71,6 +72,12 @@ const PERSUASIVE_MESSAGES = [
 function InviteAppContent() {
   const searchParams = useSearchParams();
   const rawParamName = searchParams.get("nome") || searchParams.get("para") || "";
+  const rawParamPhone =
+    searchParams.get("tel") ||
+    searchParams.get("phone") ||
+    searchParams.get("wpp") ||
+    searchParams.get("para_tel") ||
+    "";
 
   // Step state machine: "invite" -> "role" -> "sinuca_custom" | "comida" -> "sobremesa" -> "dia" -> "resumo"
   const [step, setStep] = useState<Step>("invite");
@@ -93,8 +100,18 @@ function InviteAppContent() {
     sinuca_combo: null,
   });
 
-  // WhatsApp phone number
-  const [phone, setPhone] = useState<string>(DEFAULT_PHONE);
+  // WhatsApp phone number (auto-populated from URL param or default)
+  const [phone, setPhone] = useState<string>(() => {
+    const cleaned = rawParamPhone.replace(/\D/g, "");
+    return cleaned.length >= 10 ? cleaned : DEFAULT_PHONE;
+  });
+
+  useEffect(() => {
+    if (rawParamPhone) {
+      const cleaned = rawParamPhone.replace(/\D/g, "");
+      if (cleaned.length >= 10) setPhone(cleaned);
+    }
+  }, [rawParamPhone]);
 
   // Fugitive "Não" button state - flees across the entire viewport screen
   const [hasMovedNo, setHasMovedNo] = useState(false);
@@ -316,55 +333,63 @@ function InviteAppContent() {
   const selectedDia = DIA_OPTIONS.find((o) => o.id === selections.dia);
   const selectedSinucaCombo = SINUCA_OPTIONS.find((o) => o.id === selections.sinuca_combo);
 
-  // Personalized greeting
-  const greeting = guestName?.trim() ? `Fala, ${guestName.trim()}!` : `Fala!`;
+  // Response introduction from the girl back to the sender
+  const responseIntro = guestName?.trim()
+    ? `Oi! Aceitei seu convite, ${guestName.trim()} aqui! 😏🎯`
+    : `Desafio aceito! O nosso rolê tá confirmado. 😏🎯`;
 
   // Formatted WhatsApp message with confidence and charm
   let formattedWhatsAppMessage = "";
   if (isSinuca) {
-    formattedWhatsAppMessage = `${greeting} O nosso rolê tá confirmado. 🎯
+    formattedWhatsAppMessage = `${responseIntro}
 
-Aqui está a nossa estratégia:
+Aqui está a nossa programação oficial:
 🎱 Rolê: ${selectedRole?.title || "Partida de sinuca"}
 🍻 Cervejas & Petisco: ${selectedSinucaCombo?.title || "A definir"}
 📅 Dia: ${selectedDia?.title || "A definir"}
 
-Comida boa, risada garantida e zero perrengue: 100% fechado!
-Qual horário fica melhor pra você? 😏🚀`;
+Garantia anti-perrengue ativada! 🛡️
+Qual horário fica melhor pra gente se encontrar? 🚀`;
   } else if (isFilmeGame) {
-    formattedWhatsAppMessage = `${greeting} O nosso rolê tá confirmado. 🎯
+    formattedWhatsAppMessage = `${responseIntro}
 
-Aqui está a nossa estratégia:
+Aqui está a nossa programação oficial:
 🎮 Rolê: ${selectedRole?.title || "Filme no sofá, videogame ou baralho"}
 🍿 Snacks & Guloseimas: ${selectedComida?.title || "A definir"}
 📅 Dia: ${selectedDia?.title || "A definir"}
 
-Comida boa, risada garantida e zero perrengue: 100% fechado!
-Qual horário fica melhor pra você? 😏🚀`;
+Garantia anti-perrengue ativada! 🛡️
+Qual horário fica melhor pra gente se encontrar? 🚀`;
   } else if (isFoodIncluded) {
-    formattedWhatsAppMessage = `${greeting} O nosso rolê tá confirmado. 🎯
+    formattedWhatsAppMessage = `${responseIntro}
 
-Aqui está a nossa estratégia:
+Aqui está a nossa programação oficial:
 🎯 Rolê & Comida: ${selectedRole?.title || "A definir"}
 🍨 Sobremesa: ${selectedSobremesa?.title || "A definir"}
 📅 Dia: ${selectedDia?.title || "A definir"}
 
-Comida boa, risada garantida e zero perrengue: 100% fechado!
-Qual horário fica melhor pra você? 😏🚀`;
+Garantia anti-perrengue ativada! 🛡️
+Qual horário fica melhor pra gente se encontrar? 🚀`;
   } else {
-    formattedWhatsAppMessage = `${greeting} O nosso rolê tá confirmado. 🎯
+    formattedWhatsAppMessage = `${responseIntro}
 
-Aqui está a nossa estratégia:
+Aqui está a nossa programação oficial:
 🎯 Rolê: ${selectedRole?.title || "A definir"}
 🍔 Comida: ${selectedComida?.title || "A definir"}
 🍨 Sobremesa: ${selectedSobremesa?.title || "A definir"}
 📅 Dia: ${selectedDia?.title || "A definir"}
 
-Comida boa, risada garantida e zero perrengue: 100% fechado!
-Qual horário fica melhor pra você? 😏🚀`;
+Garantia anti-perrengue ativada! 🛡️
+Qual horário fica melhor pra gente se encontrar? 🚀`;
   }
 
-  const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(
+  // 1. Direct link to the sender's phone number
+  const whatsappUrlDirect = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(
+    formattedWhatsAppMessage
+  )}`;
+
+  // 2. Fallback link opening WhatsApp contact picker to choose any contact
+  const whatsappUrlContactPicker = `https://api.whatsapp.com/send?text=${encodeURIComponent(
     formattedWhatsAppMessage
   )}`;
 
@@ -1036,9 +1061,10 @@ Qual horário fica melhor pra você? 😏🚀`;
 
             {/* Action button */}
             <div className="space-y-3 pt-1">
+              {/* Main Button: Sends directly to sender or opens picker */}
               <a
                 id="btn-whatsapp"
-                href={whatsappUrl}
+                href={phone ? whatsappUrlDirect : whatsappUrlContactPicker}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
@@ -1053,8 +1079,26 @@ Qual horário fica melhor pra você? 😏🚀`;
                 className="w-full min-h-[48px] bg-[#25D366] hover:bg-[#20ba59] active:scale-98 text-slate-950 font-black text-base sm:text-lg py-4 px-6 rounded-xl shadow-[0_0_30px_rgba(37,211,102,0.35)] flex items-center justify-center gap-3 transition-all duration-200 cursor-pointer text-center group"
               >
                 <Send className="w-5 h-5 fill-current group-hover:translate-x-1 transition-transform" />
-                <span>Enviar no WhatsApp ✨</span>
+                <span>
+                  {phone
+                    ? "Enviar Resposta no WhatsApp ✨"
+                    : "Enviar e Escolher Contato no WhatsApp ✨"}
+                </span>
               </a>
+
+              {/* Opção para escolher outro contato na lista do WhatsApp se houver número fixo */}
+              {phone && (
+                <div className="text-center pt-0.5">
+                  <a
+                    href={whatsappUrlContactPicker}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-slate-400 hover:text-emerald-300 underline underline-offset-4 inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <span>Ou escolher outro contato na lista do WhatsApp 📱</span>
+                  </a>
+                </div>
+              )}
 
               {/* Secondary actions: Copy & Refazer */}
               <div className="flex gap-2">
@@ -1086,8 +1130,9 @@ Qual horário fica melhor pra você? 😏🚀`;
                 </button>
               </div>
 
-              {/* Destination phone and schedule modal button */}
-              <div className="flex items-center justify-center gap-2 text-[11px] text-slate-500 pt-1">
+              {/* Ferramentas: Gerar Link para Ela e Configurar Destino */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 pt-2 border-t border-slate-800/80">
+                <ShareLinkModal currentPhone={phone} initialGuestName={guestName} />
                 <PhoneModal
                   currentPhone={phone}
                   onSavePhone={(p) => setPhone(p)}
